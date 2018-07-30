@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FLocation">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_full"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.project.medicalpoint.util.RecyclerViewEmptySupport
+            android:id="@+id/rv_medical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/clipboard"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/tidak_ada_data" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</FrameLayout>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "679202469610",
+    "firebase_url": "https://medicalpoint-ceac1.firebaseio.com",
+    "project_id": "medicalpoint-ceac1",
+    "storage_bucket": "medicalpoint-ceac1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679202469610:android:82a591971dde9810",
+        "android_client_info": {
+          "package_name": "com.project.medicalpoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679202469610-o70drs8p7o47a9adidoioibbggebo3ua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.medicalpoint",
+            "certificate_hash": "86bc861c5833fa872d61d4524890a3fd7deb4b16"
+          }
+        },
+        {
+          "client_id": "679202469610-3vufg1ctded7tkqu0ru7f1cj2af00um6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlv6cBUCAt_pjmXeRqCfOcftjXvqQ7KI0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679202469610-3vufg1ctded7tkqu0ru7f1cj2af00um6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
