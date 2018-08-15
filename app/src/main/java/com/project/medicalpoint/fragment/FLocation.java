@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,6 +88,8 @@ public class FLocation extends Fragment implements OnMapReadyCallback, LocationL
     CategoryPagerAdapter categoryPagerAdapter;
     @BindView(R.id.vp_category)
     ViewPager viewPager;
+    @BindView(R.id.sliding_tabs)
+    TabLayout slidingTabs;
 
     public static LatLng currentLocation;
 
@@ -105,6 +108,8 @@ public class FLocation extends Fragment implements OnMapReadyCallback, LocationL
         Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                 .add(R.id.map, mapFragment).commit();
         mapFragment.getMapAsync(this);
+
+        slidingTabs.setupWithViewPager(viewPager);
 
         return view;
     }
@@ -605,5 +610,11 @@ public class FLocation extends Fragment implements OnMapReadyCallback, LocationL
                 ButterKnife.bind(this, itemView);
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshList();
     }
 }

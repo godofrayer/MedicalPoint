@@ -26,8 +26,10 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.project.medicalpoint.fragment.FLocation;
+import com.project.medicalpoint.fragment.FProfile;
 
 import net.grandcentrix.tray.AppPreferences;
 
@@ -46,13 +48,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected LocationRequest locationRequest;
     int REQUEST_CHECK_SETTINGS = 100;
     private FirebaseFirestore database;
+    private FirebaseStorage storage;
     public static String searchConditions;
     private AppPreferences appPreferences;
 
     @BindView(R.id.searchBar)
     MaterialSearchBar searchBar;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
 
     FLocation fLocation;
+    FProfile fProfile;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -60,9 +66,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    loadFragment(fLocation);
+                    loadFragment(fProfile);
                     return true;
                 case R.id.navigation_dashboard:
+                    loadFragment(fLocation);
                     return true;
                 case R.id.navigation_notifications:
                     return true;
@@ -70,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             return false;
         }
     };
-
-    private List lastSearches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +97,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         locationRequest.setFastestInterval(5 * 1000);
 
         database = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
         fLocation = new FLocation();
+        fProfile = new FProfile();
 
         searchBar.setOnSearchActionListener(this);
-        lastSearches = loadSearchSuggestionFromDisk();
+        List lastSearches = loadSearchSuggestionFromDisk();
         searchBar.setLastSuggestions(lastSearches);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
                 try {
                     task.getResult(ApiException.class);
-                    loadFragment(fLocation);
+                    loadFragment(fProfile);
                 } catch (ApiException exception) {
                     switch (exception.getStatusCode()) {
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -211,12 +217,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onSearchConfirmed(CharSequence text) {
         searchConditions = text.toString();
-        fLocation.refreshList();
         loadFragment(fLocation);
+        navigation.setSelectedItemId(R.id.navigation_dashboard);
     }
 
     @Override
     public void onButtonClicked(int buttonCode) {
 
+    }
+
+    public FirebaseStorage getStorage() {
+        return storage;
     }
 }
