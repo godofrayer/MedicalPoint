@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.project.medicalpoint.fragment.FEmergency;
 import com.project.medicalpoint.fragment.FLocation;
 import com.project.medicalpoint.fragment.FProfile;
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     FLocation fLocation;
     FProfile fProfile;
+    FEmergency fEmergency;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     loadFragment(fLocation);
                     return true;
                 case R.id.navigation_notifications:
+                    loadFragment(fEmergency);
                     return true;
             }
             return false;
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         storage = FirebaseStorage.getInstance();
         fLocation = new FLocation();
         fProfile = new FProfile();
+        fEmergency = new FEmergency();
 
         searchBar.setOnSearchActionListener(this);
         List lastSearches = loadSearchSuggestionFromDisk();
